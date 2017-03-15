@@ -28,14 +28,41 @@ describe('Thermostat', function() {
   it('power saving mode is on by default', function() {
     expect(thermostat.powerSavingMode).toEqual(true);
   });
-  //
-  // it('power saving mode sets maximum temperature to 25', function() {
-  //   expect(thermostat.powerSavingMode).toEqual(true);
-  //   expect(thermostat.maximumTemp).toEqual(25);
-  // });
+
+  it('power saving mode sets maximum temperature to 25', function() {
+    thermostat.increaseTemp(6);
+    expect(thermostat.temp).toEqual(25);
+  });
+
+  it('cannot increase temp past 32 when PSM is off', function() {
+    thermostat.setPowerSavingMode();
+    thermostat.increaseTemp(13);
+    expect(thermostat.temp).toEqual(32);
+  });
 
   it('sets power saving mode on or off when called', function() {
     thermostat.setPowerSavingMode();
     expect(thermostat.powerSavingMode).toEqual(false);
   });
+
+  it('resets the temperature to the default', function() {
+    thermostat.increaseTemp(3);
+    thermostat.reset();
+    expect(thermostat.temp).toEqual(20);
+  });
+
+  it('reports low usage when below 18 degrees', function() {
+    thermostat.decreaseTemp(3);
+    expect(thermostat.energyUsage).toEqual('low-usage');
+  });
+
+  it('reports medium usage by default at 20 degrees ', function() {
+    expect(thermostat.energyUsage).toEqual('medium-usage');
+  });
+
+  it('reports high usage when below 32 degrees but above 24', function() {
+    thermostat.increaseTemp(8);
+    expect(thermostat.energyUsage).toEqual('high-usage');
+  });
+
 });
