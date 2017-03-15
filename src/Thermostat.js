@@ -6,7 +6,6 @@ function Thermostat() {
   this.MAXIMUM_TEMP = 25;
   this.currentTemp = this.DEFAULT_TEMP;
   this.powerSavingMode = true;
-  this.energyUsage = 'medium-usage';
 }
 
 Thermostat.prototype.getCurrentTemp = function() {
@@ -38,12 +37,12 @@ Thermostat.prototype.reset = function() {
   this.currentEnergyUsage(this.currentTemp);
 };
 
-Thermostat.prototype.currentEnergyUsage = function(currentTemp) {
-  if (currentTemp < 18) {
-    this.energyUsage = 'low-usage';
-  } else if (currentTemp < 25) {
-    this.energyUsage = 'medium-usage';
+Thermostat.prototype.currentEnergyUsage = function() {
+  if (this.currentTemp < 18) {
+    return 'low-usage';
+  } else if (this.currentTemp < 25) {
+    return 'medium-usage';
   } else {
-    this.energyUsage = 'high-usage';
+    return 'high-usage';
   }
 };

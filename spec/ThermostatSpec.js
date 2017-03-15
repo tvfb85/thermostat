@@ -73,16 +73,16 @@ describe('Thermostat', function() {
 
     it('reports low usage when below 18 degrees', function() {
       thermostat.decreaseTemp(3);
-      expect(thermostat.energyUsage).toEqual('low-usage');
+      expect(thermostat.currentEnergyUsage()).toEqual('low-usage');
     });
 
     it('reports medium usage by default at 20 degrees ', function() {
-      expect(thermostat.energyUsage).toEqual('medium-usage');
+      expect(thermostat.currentEnergyUsage()).toEqual('medium-usage');
     });
 
     it('reports high usage when below 32 degrees but above 24', function() {
       thermostat.increaseTemp(8);
-      expect(thermostat.energyUsage).toEqual('high-usage');
+      expect(thermostat.currentEnergyUsage()).toEqual('high-usage');
     });
 
   });
