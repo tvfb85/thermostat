@@ -15,7 +15,7 @@ describe('Thermostat', function() {
     });
 
     it('resets the temperature to the default', function() {
-      thermostat.increaseTemp(3);
+      thermostat.adjustTemp(23);
       thermostat.reset();
       expect(thermostat.getCurrentTemp()).toEqual(20);
     });
@@ -24,14 +24,14 @@ describe('Thermostat', function() {
 
   describe('temperature adjustment', function() {
 
-    it('increases the temperature by 1', function() {
-      thermostat.increaseTemp(1);
+    it('increases the temperature to 21', function() {
+      thermostat.adjustTemp(21);
       expect(thermostat.getCurrentTemp()).toEqual(21);
     });
 
-    it('decreases the temperature by 1', function() {
-      thermostat.decreaseTemp(1);
-      expect(thermostat.getCurrentTemp()).toEqual(19);
+    it('decreases the temperature to 18', function() {
+      thermostat.adjustTemp(18);
+      expect(thermostat.getCurrentTemp()).toEqual(18);
     });
 
   });
@@ -39,13 +39,13 @@ describe('Thermostat', function() {
   describe('minimum and maximum temperatures', function() {
 
     it('temperature cannot be set below 10 degrees', function() {
-      thermostat.decreaseTemp(11);
+      thermostat.adjustTemp(9);
       expect(thermostat.getCurrentTemp()).toEqual(10);
     });
 
     it('cannot increase temp past 32 when PSM is off', function() {
       thermostat.setPowerSavingMode();
-      thermostat.increaseTemp(13);
+      thermostat.adjustTemp(33);
       expect(thermostat.getCurrentTemp()).toEqual(32);
     });
 
@@ -58,7 +58,7 @@ describe('Thermostat', function() {
     });
 
     it('power saving mode sets maximum temperature to 25', function() {
-      thermostat.increaseTemp(6);
+      thermostat.adjustTemp(26);
       expect(thermostat.getCurrentTemp()).toEqual(25);
     });
 
@@ -72,7 +72,7 @@ describe('Thermostat', function() {
   describe('energy usage', function() {
 
     it('reports low usage when below 18 degrees', function() {
-      thermostat.decreaseTemp(3);
+      thermostat.adjustTemp(15);
       expect(thermostat.currentEnergyUsage()).toEqual('low-usage');
     });
 
@@ -81,10 +81,9 @@ describe('Thermostat', function() {
     });
 
     it('reports high usage when below 32 degrees but above 24', function() {
-      thermostat.increaseTemp(8);
+      thermostat.adjustTemp(28);
       expect(thermostat.currentEnergyUsage()).toEqual('high-usage');
     });
-
   });
 
 });

@@ -12,14 +12,16 @@ Thermostat.prototype.getCurrentTemp = function() {
   return this.currentTemp;
 };
 
-Thermostat.prototype.increaseTemp = function(degrees) {
-    this.currentTemp + degrees > this.MAXIMUM_TEMP ? this.currentTemp = this.MAXIMUM_TEMP : this.currentTemp += degrees;
-    this.currentEnergyUsage(this.currentTemp);
-};
-
-Thermostat.prototype.decreaseTemp = function(degrees) {
-  this.currentTemp - degrees < this.MINIMUM_TEMP ? this.currentTemp = this.MINIMUM_TEMP : this.currentTemp -= degrees;
-  this.currentEnergyUsage(this.currentTemp);
+Thermostat.prototype.adjustTemp = function(desiredTemp) {
+  var difference = desiredTemp - this.currentTemp;
+  if (this.currentTemp + difference > this.MAXIMUM_TEMP) {
+    this.currentTemp = this.MAXIMUM_TEMP;
+  } else if (this.currentTemp + difference < this.MINIMUM_TEMP) {
+    this.currentTemp = this.MINIMUM_TEMP;
+  } else {
+    this.currentTemp = desiredTemp;
+  }
+  this.currentEnergyUsage();
 };
 
 Thermostat.prototype.setPowerSavingMode = function() {
@@ -34,7 +36,7 @@ Thermostat.prototype.setPowerSavingMode = function() {
 
 Thermostat.prototype.reset = function() {
   this.currentTemp = this.DEFAULT_TEMP;
-  this.currentEnergyUsage(this.currentTemp);
+  this.currentEnergyUsage();
 };
 
 Thermostat.prototype.currentEnergyUsage = function() {
