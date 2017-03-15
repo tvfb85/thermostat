@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Thermostat', function() {
 
   var thermostat;
@@ -6,63 +8,83 @@ describe('Thermostat', function() {
     thermostat = new Thermostat();
   });
 
-  it('starts at 20 degrees', function() {
-    expect(thermostat.temp).toEqual(20);
+  describe('thermostat default properties', function() {
+
+    it('starts at 20 degrees', function() {
+      expect(thermostat.getCurrentTemp()).toEqual(20);
+    });
+
+    it('resets the temperature to the default', function() {
+      thermostat.increaseTemp(3);
+      thermostat.reset();
+      expect(thermostat.getCurrentTemp()).toEqual(20);
+    });
+
   });
 
-  it('increases the temperature by 1', function() {
-    thermostat.increaseTemp(1);
-    expect(thermostat.temp).toEqual(21);
+  describe('temperature adjustment', function() {
+
+    it('increases the temperature by 1', function() {
+      thermostat.increaseTemp(1);
+      expect(thermostat.getCurrentTemp()).toEqual(21);
+    });
+
+    it('decreases the temperature by 1', function() {
+      thermostat.decreaseTemp(1);
+      expect(thermostat.getCurrentTemp()).toEqual(19);
+    });
+
   });
 
-  it('decreases the temperature by 1', function() {
-    thermostat.decreaseTemp(1);
-    expect(thermostat.temp).toEqual(19);
+  describe('minimum and maximum temperatures', function() {
+
+    it('temperature cannot be set below 10 degrees', function() {
+      thermostat.decreaseTemp(11);
+      expect(thermostat.getCurrentTemp()).toEqual(10);
+    });
+
+    it('cannot increase temp past 32 when PSM is off', function() {
+      thermostat.setPowerSavingMode();
+      thermostat.increaseTemp(13);
+      expect(thermostat.getCurrentTemp()).toEqual(32);
+    });
+
   });
 
-  it('temperature cannot be set below 10 degrees', function() {
-    thermostat.decreaseTemp(11);
-    expect(thermostat.temp).toEqual(10);
+  describe('power saving mode', function() {
+
+    it('power saving mode is on by default', function() {
+      expect(thermostat.powerSavingMode).toEqual(true);
+    });
+
+    it('power saving mode sets maximum temperature to 25', function() {
+      thermostat.increaseTemp(6);
+      expect(thermostat.getCurrentTemp()).toEqual(25);
+    });
+
+    it('can set power saving mode to off', function() {
+      thermostat.setPowerSavingMode();
+      expect(thermostat.powerSavingMode).toEqual(false);
+    });
+
   });
 
-  it('power saving mode is on by default', function() {
-    expect(thermostat.powerSavingMode).toEqual(true);
-  });
+  describe('energy usage', function() {
 
-  it('power saving mode sets maximum temperature to 25', function() {
-    thermostat.increaseTemp(6);
-    expect(thermostat.temp).toEqual(25);
-  });
+    it('reports low usage when below 18 degrees', function() {
+      thermostat.decreaseTemp(3);
+      expect(thermostat.energyUsage).toEqual('low-usage');
+    });
 
-  it('cannot increase temp past 32 when PSM is off', function() {
-    thermostat.setPowerSavingMode();
-    thermostat.increaseTemp(13);
-    expect(thermostat.temp).toEqual(32);
-  });
+    it('reports medium usage by default at 20 degrees ', function() {
+      expect(thermostat.energyUsage).toEqual('medium-usage');
+    });
 
-  it('sets power saving mode on or off when called', function() {
-    thermostat.setPowerSavingMode();
-    expect(thermostat.powerSavingMode).toEqual(false);
-  });
+    it('reports high usage when below 32 degrees but above 24', function() {
+      thermostat.increaseTemp(8);
+      expect(thermostat.energyUsage).toEqual('high-usage');
+    });
 
-  it('resets the temperature to the default', function() {
-    thermostat.increaseTemp(3);
-    thermostat.reset();
-    expect(thermostat.temp).toEqual(20);
-  });
-
-  it('reports low usage when below 18 degrees', function() {
-    thermostat.decreaseTemp(3);
-    expect(thermostat.energyUsage).toEqual('low-usage');
-  });
-
-  it('reports medium usage by default at 20 degrees ', function() {
-    expect(thermostat.energyUsage).toEqual('medium-usage');
-  });
-
-  it('reports high usage when below 32 degrees but above 24', function() {
-    thermostat.increaseTemp(8);
-    expect(thermostat.energyUsage).toEqual('high-usage');
   });
 
 });
