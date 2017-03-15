@@ -22,6 +22,7 @@ Thermostat.prototype.adjustTemp = function(desiredTemp) {
     this.currentTemp = desiredTemp;
   }
   this.currentEnergyUsage();
+  return this.currentTemp;
 };
 
 Thermostat.prototype.setPowerSavingMode = function() {

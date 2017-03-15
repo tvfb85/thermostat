@@ -6,33 +6,36 @@
   </head>
 
   <body>
-    <h1 style="font-size:34px;">Thermostat</h1>
+    <h1 id="temperature" style="font-size:34px;">Thermostat</h1>
     <img style="margin-left:30px;float:left;" src="http://www.clker.com/cliparts/p/W/e/k/U/d/blank-fundraising-thermometer-hi.png"/>
     <form style="float:left;padding-top:60px;" method="POST" action="#">
-      <input type="radio" name="degrees" value="10">10<br>
-      <input type="radio" name="degrees" value="11">11<br>
-      <input type="radio" name="degrees" value="12">12<br>
-      <input type="radio" name="degrees" value="13">13<br>
-      <input type="radio" name="degrees" value="14">14<br>
-      <input type="radio" name="degrees" value="15">15<br>
-      <input type="radio" name="degrees" value="16">16<br>
-      <input type="radio" name="degrees" value="17">17<br>
-      <input type="radio" name="degrees" value="18">18<br>
-      <input type="radio" name="degrees" value="19">19<br>
-      <input type="radio" name="degrees" value="20">20<br>
-      <input type="radio" name="degrees" value="21">21<br>
-      <input type="radio" name="degrees" value="22">22<br>
-      <input type="radio" name="degrees" value="23">23<br>
-      <input type="radio" name="degrees" value="24">24<br>
-      <input type="radio" name="degrees" value="25">25<br>
-      <input type="radio" name="degrees" value="26">26<br>
-      <input type="radio" name="degrees" value="27">27<br>
-      <input type="radio" name="degrees" value="28">28<br>
-      <input type="radio" name="degrees" value="29">29<br>
-      <input type="radio" name="degrees" value="30">30<br>
-      <input type="radio" name="degrees" value="31">31<br>
-      <input type="radio" name="degrees" value="32">32<br>
+      <input id="temp-value" type="radio" name="degrees" value="10">10<br>
+      <input id="temp-value" type="radio" name="degrees" value="11">11<br>
+      <input id="temp-value" type="radio" name="degrees" value="12">12<br>
+      <input id="temp-value" type="radio" name="degrees" value="13">13<br>
+      <input id="temp-value" type="radio" name="degrees" value="14">14<br>
+      <input id="temp-value" type="radio" name="degrees" value="15">15<br>
+      <input id="temp-value" type="radio" name="degrees" value="16">16<br>
+      <input id="temp-value" type="radio" name="degrees" value="17">17<br>
+      <input id="temp-value" type="radio" name="degrees" value="18">18<br>
+      <input id="temp-value" type="radio" name="degrees" value="19">19<br>
+      <input id="temp-value" type="radio" name="degrees" value="20">20<br>
+      <input id="temp-value" type="radio" name="degrees" value="21">21<br>
+      <input id="temp-value" type="radio" name="degrees" value="22">22<br>
+      <input id="temp-value" type="radio" name="degrees" value="23">23<br>
+      <input id="temp-value" type="radio" name="degrees" value="24">24<br>
+      <input id="temp-value" type="radio" name="degrees" value="25">25<br>
+      <input id="temp-value" type="radio" name="degrees" value="26">26<br>
+      <input id="temp-value" type="radio" name="degrees" value="27">27<br>
+      <input id="temp-value" type="radio" name="degrees" value="28">28<br>
+      <input id="temp-value" type="radio" name="degrees" value="29">29<br>
+      <input id="temp-value" type="radio" name="degrees" value="30">30<br>
+      <input id="temp-value" type="radio" name="degrees" value="31">31<br>
+      <input id="temp-value" type="radio" name="degrees" value="32">32<br>
+      <button style="background-color:orange; margin-top:15px;" type="submit" value="Set Temp">Set Temp</button>
     </form>
-    <div style="margin:250px 0 0 50px;float:left;width:100px;background-color:orange; color:black"> Select temp</div>
+    <button id="temperature-reset" style="background-color:black; color:white; margin-top:15px;" type="submit" value="set-temp">Reset</button>
+    <button id="powersaving-status" style="background-color:orange; margin-top:15px;" type="submit" value="psm">PSM</button>
+    <div id="energy-bar" style="float:left;background-color:orange; margin-top:15px; margin-right:5px;border:2px solid grey; width:60px; height:17px;padding-top:1px;">Medium</div>
   </body>
 </html>
